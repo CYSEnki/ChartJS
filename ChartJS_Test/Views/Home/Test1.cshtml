@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "Test1";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Test1</h2>
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+<div>
+    <canvas id="multi_axis_line_chart"></canvas>
+</div>
+
+@section scripts
+ {
+    <script>
+        const ctx = document.getElementById('myChart');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2, 3],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // <block:actions:2>
+        //const actions = [
+        //    {
+        //        name: 'Randomize',
+        //        handler(chart) {
+        //            chart.data.datasets.forEach(dataset => {
+        //                dataset.data = Utils.numbers({ count: chart.data.labels.length, min: -100, max: 100 });
+        //            });
+        //            chart.update();
+        //        }
+        //    },
+        //];
+        // </block:actions>
+
+        // <block:setup:1>
+        const DATA_COUNT = 7;
+        const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
+
+        //const labels = Utils.months({ count: 7 });
+        const labels = ['Label 1', 'Label 2', 'Label 3', 'Label 4', 'Label 5', 'Label 6', 'Label 7'];
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Dataset 1',
+                    data: ['123', '456', '732', '783', '76', '68', '387'],
+                    borderColor: '#411915',
+                    backgroundColor: '#411915',
+                    yAxisID: 'y',
+                },
+                {
+                    label: 'Dataset 2',
+                    data: ['996', '45', '666', '44', '737', '213453', '7832723'],
+                    borderColor: '#491514',
+                    backgroundColor: '#491514',
+                    yAxisID: 'y1',
+                }
+            ]
+        };
+        // </block:setup>
+
+        // <block:config:0>
+        const config = {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                stacked: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Chart.js Line Chart - Multi Axis'
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+
+                        // grid line settings
+                        grid: {
+                            drawOnChartArea: false, // only want the grid lines for one axis to show up
+                        },
+                    },
+                }
+            },
+        };
+        // </block:config>
+
+        //module.exports = {
+        //    actions: actions,
+        //    config: config,
+        //};
+        const actions = [
+            {
+                name: 'Randomize',
+                handler(chart) {
+                    chart.data.datasets.forEach(dataset => {
+                        dataset.data = Utils.numbers({ count: chart.data.labels.length, min: -100, max: 100 });
+                    });
+                    chart.update();
+                }
+            },
+        ];
+
+        const ctx2 = document.getElementById('multi_axis_line_chart').getContext('2d');
+        const myChart = new Chart(ctx2, config);
+    </script>
+
+}
+
+
