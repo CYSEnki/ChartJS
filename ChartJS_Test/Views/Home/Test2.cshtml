@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Test2";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Test1</h2>
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+@section scripts
+ {
+    <script>
+
+        // <block:config:0>
+        //const config = {
+        //    type: 'bubble',
+        //    data: data,
+        //    options: {
+        //        responsive: true,
+        //        plugins: {
+        //            legend: {
+        //                position: 'top',
+        //            },
+        //            title: {
+        //                display: true,
+        //                text: 'Chart.js Bubble Chart'
+        //            }
+        //        }
+        //    },
+        //};
+        // </block:config>
+
+        // <block:setup:0>
+        const DATA_COUNT = 7;
+        const NUMBER_CFG = { count: DATA_COUNT, rmin: 5, rmax: 15, min: 0, max: 100 };
+
+        const data = {
+            datasets: [
+                {
+                    label: 'Dataset 1',
+                    data: [{ x: 10, y: 20, r: 15 }, // 第一個泡泡的資料點
+                        { x: 30, y: 15, r: 10 }, // 第二個泡泡的資料點
+                        { x: 25, y: 35, r: 8 }],  // 第三個泡泡的資料點,
+                    borderColor: 'RGBA(147, 112, 219,1)', // 泡泡的背景顏色
+                    backgroundColor: 'RGBA(75, 0, 130, 0.5)',
+                },
+                {
+                    label: 'Dataset 2',
+                    data: [{ x: 6, y: 12, r: 10 }, // 第一個泡泡的資料點
+                    { x: 40, y: 35, r: 5 }, // 第二個泡泡的資料點
+                    { x: 30, y: 20, r: 10 }],  // 第三個泡泡的資料點,
+                    borderColor: 'RGB(0, 0, 139)',
+                    backgroundColor: 'RGB(135, 206, 250)',
+                }
+            ]
+        };
+        // </block:setup>
+
+        const ctx = document.getElementById('myChart');
+        new Chart(ctx, {
+            type: 'bubble',
+            data: data,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Chart.js Bubble Chart'
+                    }
+                }
+            },
+        });
+
+    </script>
+
+}
+
+
